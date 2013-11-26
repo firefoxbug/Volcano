@@ -10,7 +10,9 @@ conf/volcano.conf
 
 
 \# volcano configure file
+
 ip_address1 password
+
 ip_address2 password
 
 ========Run=========
