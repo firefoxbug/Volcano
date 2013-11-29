@@ -25,4 +25,6 @@ class ReportLog(object):
 			results['result'] = False
 		results['description'] = des_str
 		results['data'] = info_str
-		print json.dumps(results)
+#		print json.dumps(results)
+		print results['result']
+		print results['data']

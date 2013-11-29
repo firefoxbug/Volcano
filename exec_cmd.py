@@ -21,17 +21,19 @@ class ExecCMD(object):
 		try :
 #			print exec_cmd['ip'],exec_cmd['passwd']
 #			print "\n"
-			print "Connecting %s..."%exec_cmd['ip']
+			print "\nConnecting %s..."%exec_cmd['ip']
 			log_time = time.strftime("%Y-%m-%d %H:%M:%S")
 			socket.setdefaulttimeout(2)
 			ssh = paramiko.SSHClient()
 			ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 			ssh.connect(exec_cmd['ip'],exec_cmd['port'],exec_cmd['username'],exec_cmd['passwd'])
+			print "Connected %s Successfully..."%exec_cmd['ip']
 			stdin, stdout, stderr = ssh.exec_command(exec_cmd['cmd2exec'])
 			err_message = stderr.read()
 			if err_message:
-				ReportLog.send_results(False,"[ERROR %s]: execute [%s] on %s"%(log_time,exec_cmd['cmd2exec'],exec_cmd['ip']),des_str=err_message)
-				return False
+				print err_message
+				ReportLog.send_results(True,"[INFO %s]: execute [%s] on %s"%(log_time,exec_cmd['cmd2exec'],exec_cmd['ip']),des_str=err_message)
+				return True
 			ok_message = stdout.read()
 			ReportLog.send_results(True,"[INFO %s]: execute [%s] on %s"%(log_time,exec_cmd['cmd2exec'],exec_cmd['ip']),des_str=str(ok_message))
 			ssh.close()
