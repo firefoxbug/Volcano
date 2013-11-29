@@ -34,7 +34,6 @@ function yum_update()
 	ntpdate -u pool.ntp.org
 	/sbin/hwclock -w
 }	
-}
 
 function install_gearman()
 {
